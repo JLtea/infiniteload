@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
+//Mock API call object
 const mock = {};
 const InfiniteLoader = () => {
 // Card State
