@@ -1,3 +1,10 @@
 # infiniteload
 
-Reusable Infinite Loader Component using React and Ant Design components
+Reusable React component for infinite loading
+
+```
+yarn install
+yarn start
+```
+
+Made with Ant Design CSS and styled-components.
