@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Spin, Card } from "antd";
 import { LoadingOutlined, ReloadOutlined } from "@ant-design/icons";
-import { Container, CardLayout, Loader } from "./styles";
+import { Head, Container, CardLayout, Loader } from "./styles";
 
 //Mock API call
 const url = "https://jsonplaceholder.typicode.com";
@@ -21,17 +21,12 @@ const InfiniteLoader = () => {
     }
   };
   const fetchCards = async () => {
-    // await new Promise((resolve) => {
-    //   setTimeout(resolve, 2000);
-    // });
     //set fetched data
     const response = await fetch(`${url}/posts`);
     const json = await response.json()
-    console.log(json);
-    setCards((current) => [
-      ...current,
-      json.splice(cards.length, cards.length + 10),
-    ]);
+    setCards([...cards,...json.splice(cards.length, cards.length + 10)]);
+    console.log(cards);
+
     //set spinner off
     setInfiniteLoad(false);
   };
@@ -57,10 +52,11 @@ const InfiniteLoader = () => {
 
   return (
     <Container>
+      <Head>Infinite Loader <Spin indicator={<LoadingOutlined style={{ fontSize: 80 }} />}/> </Head>
       <CardLayout>
-        {cards.map((card) => (
-          <Card style={{width: 400, height: 400}} title={card.title}>{card.body}</Card>
-        ))}
+        {cards.map((card) =>
+          <Card key={card.id} style={{ width: 300, height: 300, margin: '0.5%' }} title={card.title}>{card.body}</Card>
+        )}
       </CardLayout>
       <Loader className="infiniteLoad" ref={loader}>
         {infiniteLoad ? (
